@@ -20,8 +20,12 @@ async fn main() {
 
     // And a MakeService to handle each connection...
     let make_service = make_service_fn(|_conn| async {
-        let hello_world = learn_rust::hello_world::HelloWorld {};
-        Ok::<_, Infallible>(/* service_fn(handle) */ hello_world)
+        let svc = learn_rust::hello_world::HelloWorld {};
+        let svc = learn_rust::log::LogService::new(svc);
+        let svc = learn_rust::log::LogService::new(svc);
+
+        let svc = learn_rust::log::LogService::new(svc);
+        Ok::<_, Infallible>(/* service_fn(handle) */ svc)
     });
 
     // Then bind and serve...
